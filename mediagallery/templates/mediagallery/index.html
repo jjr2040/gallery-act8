@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Gallería Multimedia{% endblock title %}
+
+{% block content %}
+<div class="container-fluid">
+	<div class="row">
+		{% for m in media %}
+			<div class="col-md-4">
+				<div class="card" style="width: 100%">
+				  	{% if m.is_video %}
+				  		<iframe class="card-img-top" width="100%" height="315" src="{{m.url}}?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+				  	{% else %}
+				  		<iframe width="100%" height="315" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url={{m.url}}&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
+				  	{% endif %}
+				  	
+				  	<div class="card-body">
+				    	<h5 class="card-title">{{m.author}}</h5>
+				    	<p class="card-text"> 
+				    		<strong>Categoría:</strong> {{m.category}} <br>
+				    		<strong>Lugar:</strong> {{m.city}}/{{m.country}}
+				    	</p>
+				    	<p class="card-text"></p>
+				    	<a href="#" class="btn btn-primary btn-block">Detalles</a>
+				  	</div>
+				</div>
+			</div>
+
+		{% endfor %}
+	</div>
+</div>
+{% endblock content %}
