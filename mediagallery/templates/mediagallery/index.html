@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Gallería Multimedia{% endblock title %}
+{% block title %}Galería Multimedia{% endblock title %}
 
 {% block content %}
 <div class="container-fluid">
@@ -21,7 +21,7 @@
 				    		<strong>Lugar:</strong> {{m.city}}/{{m.country}}
 				    	</p>
 				    	<p class="card-text"></p>
-				    	<a href="#" class="btn btn-light btn-block">Detalles</a>
+				    	<a href="/details/{{m.id}}" class="btn btn-light btn-block">Detalles</a>
 				  	</div>
 				</div>
 			</div>
