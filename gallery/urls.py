@@ -16,8 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from mediagallery.views import *
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', MediaListView.as_view(), name='media_index')
+    path('', MediaListView.as_view(), name='media_index'),
+    path('signup/', SignUp.as_view(), name='signup'),
+    path('accounts/', include('django.contrib.auth.urls'))
 ]
