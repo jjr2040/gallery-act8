@@ -23,7 +23,7 @@
 
     <script>
 
-      var cadena = {{mediaDetails.url}},
+      var cadena = {{mediaDetails.url}}.toString(),
         separador = "/",
         arregloDeSubCadenas = cadena.split(separador);
 
@@ -44,7 +44,7 @@
         player = new YT.Player('player', {
           height: '480',
           width: '720',
-          videoId: arregloDeSubCadenas[2],
+          videoId: arregloDeSubCadenas[5],
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
