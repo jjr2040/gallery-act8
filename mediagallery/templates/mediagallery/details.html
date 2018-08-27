@@ -26,6 +26,11 @@
         separador = "/",
         arregloDeSubCadenas = cadena.split(separador);
 
+      console.log("Cadena: " + cadena);
+      for(var i = 0; i < arregloDeSubCadenas.length; i++){
+          console.log(arregloDeSubCadenas[i]);
+      }
+
       var tag = document.createElement('script');
 
       tag.src = "https://www.youtube.com/iframe_api";
