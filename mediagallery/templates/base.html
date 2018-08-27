@@ -17,20 +17,26 @@
   <body>
 
     <div class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-      <a class="navbar-brand" href="{% url 'media_index' %}">Galería multimedia</a>
-        <ul class="nav navbar-nav" style="float: right">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <a class="navbar-brand" href="{% url 'media_index' %}">Galería multimedia</a>
+        
+      </div>
+        <ul class="nav navbar-nav">
           {% if user.is_authenticated %}
-            <li> Hi {{ user.username }}!
-            <a href="{% url 'edit_user' user.pk %}">Edita tu información</a>
+            <li> Hola {{ user.username }}!
+            <a class="btn btn-outline-success mr-2 ml-2" href="{% url 'edit_user' user.pk %}">Edita tu información</a> 
             </li>
-            <a href="{% url 'logout' %}">Logout</a></li>
+            <li><a class="btn btn-outline-success" href="{% url 'logout' %}">Cerrar sesión</a></li></li>
+            
           {% else %}
-            <li>You are not logged in
-            <a href="{% url 'login' %}">login</a> or
-            <a href="{% url 'signup' %}">Regístrate</a></li>
+            <li>No has iniciado sesión
+            <a class="btn btn-outline-success" href="{% url 'login' %}">Iniciar sesión</a> o
+            <a class="btn btn-outline-success" href="{% url 'signup' %}">Regístrate</a></li>
           {% endif %}
         </ul>
-
     </div>
 
     {% block content %}{% endblock content %}
