@@ -4,13 +4,13 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import ModelForm
 
 class UserCreateForm(UserCreationForm):
-    country = forms.CharField(max_length=100)
-    city = forms.CharField(max_length=50)
-    photo_url = forms.URLField()
+    country = forms.CharField(max_length=100, required=True)
+    city = forms.CharField(max_length=50, required=True)
+    photo_url = forms.URLField(required=False)
 
     class Meta:
         model = User
-        fields = ("username", "first_name", "last_name", "email", "country", "city", "photo_url",)
+        fields = ("username", "first_name", "last_name", "email", "country", "city", "photo_url")
 
     def save(self, commit=True):
         if not commit:
@@ -21,17 +21,11 @@ class UserCreateForm(UserCreationForm):
 
 
 class UserUpdateForm(ModelForm):
-    username = forms.CharField(max_length=50)
-    first_name = forms.CharField(max_length=50)
-    last_name = forms.CharField(max_length=50)
-    email = forms.EmailField()
-    country = forms.CharField(max_length=100)
-    city = forms.CharField(max_length=50)
-    photo_url = forms.URLField()
+    photo_url = forms.URLField(required=False)
 
     class Meta:
         model = User
-        fields = ("username", "first_name", "last_name", "email", "country", "city", "photo_url",)
+        fields = ("username", "first_name", "last_name", "email", "country", "city", "photo_url")
 
     def save(self, commit=True):
         if not commit:
