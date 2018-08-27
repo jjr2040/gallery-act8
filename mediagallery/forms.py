@@ -1,6 +1,7 @@
 from django import forms
 from mediagallery.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.forms import ModelForm
 
 class UserCreateForm(UserCreationForm):
     country = forms.CharField(max_length=100)
@@ -19,7 +20,11 @@ class UserCreateForm(UserCreationForm):
         return user
 
 
-class UserUpdateForm(UserChangeForm):
+class UserUpdateForm(ModelForm):
+    username = forms.CharField(max_length=50)
+    first_name = forms.CharField(max_length=50)
+    last_name = forms.CharField(max_length=50)
+    email = forms.EmailField()
     country = forms.CharField(max_length=100)
     city = forms.CharField(max_length=50)
     photo_url = forms.URLField()

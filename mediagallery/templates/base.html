@@ -21,7 +21,8 @@
         <ul class="nav navbar-nav" style="float: right">
           {% if user.is_authenticated %}
             <li> Hi {{ user.username }}!
-            <a href="{% url 'edit_user' user.pk %}">Edita tu información</a></li>
+            <a href="{% url 'edit_user' user.pk %}">Edita tu información</a>
+            </li>
             <a href="{% url 'logout' %}">Logout</a></li>
           {% else %}
             <li>You are not logged in
