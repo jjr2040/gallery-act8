@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', MediaListView.as_view(), name='media_index'),
     path('signup/', SignUp.as_view(), name='signup'),
+    path('edit-user/<int:pk>', ChangeUserView.as_view(), name='edit_user'),
     path('accounts/', include('django.contrib.auth.urls'))
 ]

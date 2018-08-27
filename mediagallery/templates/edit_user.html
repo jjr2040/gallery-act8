@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
-{% block title %}Sign Up{% endblock %}
+{% block title %}Account{% endblock %}
 
 {% block content %}
 <div class="container">
 	<div class="col">
-		<h2>Regístrate</h2>
+		<h2>Actualiza tus datos</h2>
 	  <form method="post">
 	    {% csrf_token %}
 	    {{ form.as_p }}
-	    <button class="btn btn-primary" type="submit">Registrarse</button>
+	    <button class="btn btn-primary" type="submit">Actualizar</button>
 	    <a href="/" class="btn btn-primary">Cancelar</a>
 	  </form>
 	</div>
