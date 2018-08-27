@@ -19,11 +19,11 @@
       <p class="font-italic">Fecha de creación: {{mediaDetails.created_at}}</p>
       <p class="font-italic">Pais: {{mediaDetails.country}}</p>
       <p class="font-italic">Ciudad: {{mediaDetails.city}}</p>
-    
+
     <script>
 
       var cadena = {{mediaDetails.url}},
-        separador = "=",
+        separador = "/",
         arregloDeSubCadenas = cadena.split(separador);
 
       var tag = document.createElement('script');
@@ -38,7 +38,7 @@
         player = new YT.Player('player', {
           height: '480',
           width: '720',
-          videoId: arregloDeSubCadenas[1],
+          videoId: arregloDeSubCadenas[2],
           events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
