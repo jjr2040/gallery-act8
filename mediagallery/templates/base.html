@@ -16,9 +16,22 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-      <a class="navbar-brand" href="#">Galería multimedia</a>
-    </nav>
+    <div class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+      <a class="navbar-brand" href="{% url 'media_index' %}">Galería multimedia</a>
+        <ul class="nav navbar-nav" style="float: right">
+          {% if user.is_authenticated %}
+            <li> Hi {{ user.username }}!
+            <a href="{% url 'edit_user' user.pk %}">Edita tu información</a>
+            </li>
+            <a href="{% url 'logout' %}">Logout</a></li>
+          {% else %}
+            <li>You are not logged in
+            <a href="{% url 'login' %}">login</a> or
+            <a href="{% url 'signup' %}">Regístrate</a></li>
+          {% endif %}
+        </ul>
+
+    </div>
 
     {% block content %}{% endblock content %}
 

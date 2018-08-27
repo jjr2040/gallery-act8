@@ -16,10 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from mediagallery.views import *
+<<<<<<< HEAD
 from mediagallery import views
+=======
+from django.urls import path, include
+>>>>>>> master
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', MediaListView.as_view(), name='media_index'),
+<<<<<<< HEAD
     path('details/<int:id>/', views.details, name='details')
+=======
+    path('signup/', SignUp.as_view(), name='signup'),
+    path('edit-user/<int:pk>', ChangeUserView.as_view(), name='edit_user'),
+    path('accounts/', include('django.contrib.auth.urls'))
+>>>>>>> master
 ]

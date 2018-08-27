@@ -3,6 +3,9 @@ from mediagallery.models import *
 from django.contrib.auth.admin import UserAdmin
 
 
+class CustomUserAdmin(UserAdmin):
+    list_display = ('username', 'country', 'city', 'photo_url')
+
 class MediaClipAdmin(admin.ModelAdmin):
     '''
         Admin View for MediaClip
@@ -34,6 +37,6 @@ class MediaAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Media, MediaAdmin)
-admin.site.register(User, UserAdmin)
+admin.site.register(User, CustomUserAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(MediaClip, MediaClipAdmin)
