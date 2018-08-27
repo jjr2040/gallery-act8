@@ -14,60 +14,19 @@
 
 <div class="container ">
 
-    <div id="player"></div>
+  {% if m.is_video %}
+      <iframe class="card-img-top" width="100%" height="400" src="{{mediaDetails.url}}?rel=0&amp;controls=1&amp;showinfo=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    {% else %}
+      <iframe width="100%" height="400" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url={{mediaDetails.url}}&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
+    {% endif %}
+
       <p class="font-italic">Autor: {{mediaDetails.author}}</p>
       <p class="font-italic">Fecha de creación: {{mediaDetails.created_at}}</p>
       <p class="font-italic">Pais: {{mediaDetails.country}}</p>
       <p class="font-italic">Ciudad: {{mediaDetails.city}}</p>
       <p class="font-italic">URL: {{mediaDetails.url}}</p>
 
-    <script>
 
-      var cadena = ""+{{mediaDetails.url}},
-        separador = "/",
-        arregloDeSubCadenas = cadena.split(separador);
-
-      console.log("Cadena: " + cadena);
-      for(var i = 0; i < arregloDeSubCadenas.length; i++){
-          console.log(arregloDeSubCadenas[i]);
-      }
-
-      var tag = document.createElement('script');
-
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-
-      var player;
-      function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-          height: '480',
-          width: '720',
-          videoId: arregloDeSubCadenas[5],
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-      }
-
-      function onPlayerReady(event) {
-        event.target.playVideo();
-        console.log("FUNCTION ONPLAYER READY");
-      }
-
-      var done = false;
-      function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-          done = true;
-        }
-      }
-      function stopVideo() {
-        player.stopVideo();
-      }
-
-    </script>
 </div>
 
 
