@@ -10,7 +10,6 @@
 
 {% block content %}
 
-{% if mediaDetails.is_video %}
 
 <div class="container ">
 
@@ -37,7 +36,7 @@
 </ul>
 
 
-
+<p></p>
 <h4>Agregar clip</h4>
 
 <form>
@@ -47,6 +46,7 @@
 	<input id="segInic" class="form-control" name="segInic" type="text" placeholder="Segundo Inicial">
     <label for="segFin">Segundo Final:</label>
 	<input id="segFin" class="form-control" name="segFin" type="text" placeholder="Segundo Final">
+    <p></p>
 	<button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
@@ -57,12 +57,5 @@
 <div>
 
 </div>
-{% else %}
-    <iframe width="100%" height="315" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url={{m.url}}&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
-{% endif %}
-
-
-
-
 
 {% endblock content %}
