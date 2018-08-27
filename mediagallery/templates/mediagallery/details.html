@@ -1,8 +1,86 @@
 {% extends "base.html" %}
 
+{% block title %}Galería Multimedia{% endblock title %}
+
+{% block extra_style %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock extra_style %}
+
+
+
 {% block content %}
 
-<p class="font-italic">{{mediaDetails.author}}</p>
-<p>{{mediaDetails.url}}</p>
+{% if mediaDetails.is_video %}
+
+<div class="container ">
+
+
+<div class="row">
+  <div class="col-2"></div>
+  <div class="col-8">
+    <div id="player"></div>
+      <p class="font-italic">Autor: {{mediaDetails.author}}</p>
+      <p class="font-italic">Fecha de creación: {{mediaDetails.created_at}}</p>
+      <p class="font-italic">Pais: {{mediaDetails.country}}</p>
+      <p class="font-italic">Ciudad: {{mediaDetails.city}}</p>
+  </div>
+   <div class="col-2"></div>
+</div>
+
+    <script>
+
+      var cadena = {{mediaDetails.url}},
+        separador = "=",
+        arregloDeSubCadenas = cadena.split(separador);
+
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '480',
+          width: '720',
+          videoId: arregloDeSubCadenas[1],
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      function onPlayerReady(event) {
+        event.target.playVideo();
+        console.log("FUNCTION ONPLAYER READY");
+      }
+
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          done = true;
+        }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
+
+    </script>
+</div>
+
+
+<div>
+
+</div>
+{% else %}
+    <iframe width="100%" height="315" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url={{m.url}}&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
+{% endif %}
+
+
+
+
 
 {% endblock content %}
