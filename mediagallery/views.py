@@ -10,7 +10,7 @@ class MediaListView(ListView):
     template_name = "mediagallery/index.html"
     context_object_name = 'media'
 
-<<<<<<< HEAD
+
 
 def details(request,id):
 
@@ -21,7 +21,7 @@ def details(request,id):
     }
 
     return render(request,"mediagallery/details.html", context);
-=======
+
 class SignUp(generic.CreateView):
     form_class = UserCreateForm
     success_url = reverse_lazy('login')
@@ -35,4 +35,4 @@ class ChangeUserView(generic.UpdateView):
 
     
 
->>>>>>> master
+
