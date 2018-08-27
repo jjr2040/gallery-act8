@@ -29,8 +29,10 @@
 
 <ul class="list-group">
 
-
-  <li class="list-group-item">{{m.name}}</li>
+  {% for clip in mediaDetails.clips.all %}
+    <li class="list-group-item">{{clip.name}}</li>
+  {% endfor %}
+  
 
 </ul>
 
