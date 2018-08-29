@@ -12,13 +12,19 @@ class MediaListView(ListView):
 
 
 
-def details(request,id):
+def details(request, id):
+
+    clip_id = request.GET.get('clip_id', default=None)
 
     mediaDetails = Media.objects.get(id = id)
 
     context = {
         'mediaDetails': mediaDetails
     }
+
+    if clip_id is not None:
+        clip = MediaClip.objects.get(id= clip_id)
+        context['selected_clip'] = clip
 
     return render(request,"mediagallery/details.html", context);
 
