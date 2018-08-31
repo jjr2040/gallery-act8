@@ -39,4 +39,4 @@ class CreateClip(ModelForm):
 
     class Meta:
         model = MediaClip
-        fields = ("name", "start_sec", "end_sec", "media")
+        fields = ("name", "start_sec", "end_sec")
