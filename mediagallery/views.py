@@ -11,7 +11,6 @@ class MediaListView(ListView):
     template_name = "mediagallery/index.html"
     context_object_name = 'media'
 
-
 def details(request,id):
 
     mediaDetails = Media.objects.get(id = id)
@@ -25,7 +24,7 @@ def details(request,id):
     if request.method == 'POST':
         form = forms.CreateClip(request.POST)
         if form.is_valid():
-            return redirect("", context)
+            return redirect("details", context)
 
     return render(request,"mediagallery/details.html", context)
 
