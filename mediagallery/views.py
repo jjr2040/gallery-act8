@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views.generic import ListView
 from .models import *
 from django.urls import reverse_lazy
@@ -24,7 +25,7 @@ def details(request,id):
     if request.method == 'POST':
         form = forms.CreateClip(request.POST)
         if form.is_valid():
-            return redirect("details", context)
+            return redirect(reverse('details', args=(id,)))
 
     return render(request,"mediagallery/details.html", context)
 
