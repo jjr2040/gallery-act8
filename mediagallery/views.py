@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from .models import *
 from django.urls import reverse_lazy
 from django.views import generic
 from mediagallery.forms import UserCreateForm, UserUpdateForm
+from .import forms
 
 class MediaListView(ListView):
     model = Media
@@ -11,16 +12,23 @@ class MediaListView(ListView):
     context_object_name = 'media'
 
 
-
 def details(request,id):
 
     mediaDetails = Media.objects.get(id = id)
+    form = forms.CreateClip
 
     context = {
-        'mediaDetails': mediaDetails
+        'mediaDetails': mediaDetails,
+        'form': form
     }
 
-    return render(request,"mediagallery/details.html", context);
+    if request.method == 'POST':
+        form = forms.CreateClip(request.POST)
+        if form.is_valid():
+            return redirect("mediagallery/details.html", context)
+
+    return render(request,"mediagallery/details.html", context)
+
 
 class SignUp(generic.CreateView):
     form_class = UserCreateForm

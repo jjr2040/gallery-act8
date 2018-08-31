@@ -38,15 +38,12 @@
 <p></p>
 <h4>Agregar clip</h4>
 
-<form>
-	<label for="name">Nombre:</label>
-	<input id="username" class="form-control" name="username" type="text" placeholder="Nombre">
-	<label for="segInic">Segundo Inicial:</label>
-	<input id="segInic" class="form-control" name="segInic" type="text" placeholder="Segundo Inicial">
-    <label for="segFin">Segundo Final:</label>
-	<input id="segFin" class="form-control" name="segFin" type="text" placeholder="Segundo Final">
-    <p></p>
+<form action="{% url 'details/<int:id>/' %}" method="post">
+  <div class="form-group">
+    {% csrf_token %}
+	{{form}}
 	<button type="submit" class="btn btn-primary">Submit</button>
+  </div>
 </form>
 
 
