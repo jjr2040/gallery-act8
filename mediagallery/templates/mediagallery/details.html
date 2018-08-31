@@ -38,7 +38,7 @@
 <p></p>
 <h4>Agregar clip</h4>
 
-<form action="{% url 'details/<int:id>/' %}" method="post">
+<form action="{% url 'details/' mediaDetails.id %}" method="post">
   <div class="form-group">
     {% csrf_token %}
 	{{form}}
