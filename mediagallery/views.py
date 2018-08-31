@@ -25,7 +25,7 @@ def details(request,id):
     if request.method == 'POST':
         form = forms.CreateClip(request.POST)
         if form.is_valid():
-            return redirect("mediagallery/details.html", context)
+            return redirect("", context)
 
     return render(request,"mediagallery/details.html", context)
 
