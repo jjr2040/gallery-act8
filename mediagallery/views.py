@@ -12,7 +12,10 @@ class MediaListView(ListView):
     template_name = "mediagallery/index.html"
     context_object_name = 'media'
 
-def details(request,id):
+
+def details(request, id):
+
+    clip_id = request.GET.get('clip_id', default=None)
 
     mediaDetails = Media.objects.get(id = id)
     form = forms.CreateClip
@@ -32,6 +35,13 @@ def details(request,id):
                 return redirect(reverse('details', args=(id,)))
 
     return render(request,"mediagallery/details.html", context)
+
+
+    if clip_id is not None:
+        clip = MediaClip.objects.get(id= clip_id)
+        context['selected_clip'] = clip
+
+    return render(request,"mediagallery/details.html", context);
 
 
 class SignUp(generic.CreateView):

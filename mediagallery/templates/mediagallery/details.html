@@ -3,7 +3,7 @@
 {% block title %}Galería Multimedia{% endblock title %}
 
 {% block extra_style %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 {% endblock extra_style %}
 
 
@@ -14,25 +14,53 @@
 <div class="container ">
 
   {% if mediaDetails.is_video %}
-      <iframe class="card-img-top" width="100%" height="400" src="{{mediaDetails.url}}?rel=0&amp;controls=1&amp;showinfo=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    {% if selected_clip %}
+      {# <iframe class="card-img-top" width="100%" height="400" src="{{mediaDetails.url}}?start={{selected_clip.start_sec}}&amp;autoplay=1&amp;rel=0&amp;controls=1&amp;showinfo=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> #}
+      <div data-video = "{{mediaDetails.url}}"  
+           data-startseconds = "{{selected_clip.start_sec}}"         
+           data-endseconds = "{{selected_clip.end_sec}}"    
+           data-height = "400" 
+           data-width = "100%" 
+           id = "youtube-player">
+      </div> 
     {% else %}
-      <iframe width="100%" height="400" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url={{mediaDetails.url}}&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
+      <iframe class="card-img-top" width="100%" height="400" src="{{mediaDetails.url}}?rel=0&amp;controls=1&amp;showinfo=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     {% endif %}
+  {% else %}
+    <iframe id="soundcloud-player" width="100%" height="400" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url={{mediaDetails.url}}&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
+  {% endif %}
 
-      <p class="font-italic">Autor: {{mediaDetails.author}}</p>
-      <p class="font-italic">Fecha de creación: {{mediaDetails.created_at}}</p>
-      <p class="font-italic">Pais: {{mediaDetails.country}}</p>
-      <p class="font-italic">Ciudad: {{mediaDetails.city}}</p>
-
-<h4>Clips recomendados</h4>
-
-
-<ul class="list-group">
+  <p class="font-italic">Autor: {{mediaDetails.author}}</p>
+  <p class="font-italic">Fecha de creación: {{mediaDetails.created_at}}</p>
+  <p class="font-italic">Pais: {{mediaDetails.country}}</p>
+  <p class="font-italic">Ciudad: {{mediaDetails.city}}</p>
 
 
-  <li class="list-group-item">{{m.name}}</li>
+  <div class="card">
+    <div class="card-header">
+      Clips recomendados
+    </div>
+    <div>
+      <ul class="list-group list-group-flush">
 
-</ul>
+        {% for clip in mediaDetails.clips.all %}
+          <li class="list-group-item"> 
+            {{clip.name}}
+            {% if selected_clip.pk == clip.pk %}
+               <a href="{% url 'details' mediaDetails.pk %}" class="btn btn-danger float-right">
+                <i class="fas fa-stop"></i> Stop 
+              </a> 
+            {% else %}
+               <a href="{% url 'details' mediaDetails.pk %}?clip_id={{clip.pk}}" class="btn btn-success float-right">
+                <i class="fas fa-play"></i> Play 
+              </a> 
+            {% endif %} 
+              
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
 
 
 <p></p>
@@ -55,3 +83,51 @@
 </div>
 
 {% endblock content %}
+
+{% block extra_js %}
+
+  {% if selected_clip %}
+
+    {% if mediaDetails.is_video %}
+      <script src="https://www.youtube.com/iframe_api"></script>
+      <script type="text/javascript">
+        function onYouTubeIframeAPIReady() {
+          var ctrlq = document.getElementById("youtube-player");
+          var player = new YT.Player('youtube-player', {
+            height: ctrlq.dataset.height,
+            width: ctrlq.dataset.width,
+            events: {
+              'onReady': function(e) {
+                e.target.loadVideoByUrl({ 
+                  mediaContentUrl: ctrlq.dataset.video,
+                  startSeconds: ctrlq.dataset.startseconds,
+                  endSeconds: ctrlq.dataset.endseconds
+                });
+              }
+            } 
+          }); 
+        } 
+      </script>
+    {% else %}
+      <script src="https://w.soundcloud.com/player/api.js"></script>
+      <script type="text/javascript">
+        (function() {
+          
+
+          var startMilisec = parseInt('{{selected_clip.start_sec}}') * 1000;
+
+          var widget = SC.Widget('soundcloud-player');
+
+          widget.bind(SC.Widget.Events.READY, function() {
+            widget.seekTo( startMilisec );
+            widget.play();
+          });
+
+        })();
+          
+      </script>
+    {% endif %}
+    
+  {% endif %}
+
+{% endblock extra_js %}
