@@ -34,14 +34,12 @@ def details(request, id):
                 instance.save()
                 return redirect(reverse('details', args=(id,)))
 
-    return render(request,"mediagallery/details.html", context)
-
 
     if clip_id is not None:
         clip = MediaClip.objects.get(id= clip_id)
         context['selected_clip'] = clip
 
-    return render(request,"mediagallery/details.html", context);
+    return render(request,"mediagallery/details.html", context)
 
 
 class SignUp(generic.CreateView):
