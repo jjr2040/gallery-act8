@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from mediagallery.forms import UserCreateForm, UserUpdateForm
 from .import forms
+from django.core.mail import send_mail
 
 class MediaListView(ListView):
     model = Media
@@ -43,6 +44,10 @@ def details(request, id):
                 instance = form.save(commit=False)
                 instance.media = mediaDetails
                 instance.save()
+                
+                send_mail('Clip creado', 
+                    'Un nuevo clip ha sido creado', 
+                    'jj.villegas47@uniandes.edu.co', [request.user.email], fail_silently=False)
                 return redirect(reverse('details', args=(id,)))
 
 

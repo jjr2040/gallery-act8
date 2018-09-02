@@ -35,45 +35,46 @@
   <p class="font-italic">Pais: {{mediaDetails.country}}</p>
   <p class="font-italic">Ciudad: {{mediaDetails.city}}</p>
 
+  {% if mediaDetails.clips.all.count > 0 %}
+    <div class="card">
+      <div class="card-header">
+        Clips recomendados
+      </div>
+      <div>
+        <ul class="list-group list-group-flush">
 
-  <div class="card">
-    <div class="card-header">
-      Clips recomendados
+          {% for clip in mediaDetails.clips.all %}
+            <li class="list-group-item"> 
+              {{clip.name}}
+              {% if selected_clip.pk == clip.pk %}
+                 <a href="{% url 'details' mediaDetails.pk %}" class="btn btn-danger float-right">
+                  <i class="fas fa-stop"></i> Stop 
+                </a> 
+              {% else %}
+                 <a href="{% url 'details' mediaDetails.pk %}?clip_id={{clip.pk}}" class="btn btn-success float-right">
+                  <i class="fas fa-play"></i> Play 
+                </a> 
+              {% endif %} 
+                
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
-    <div>
-      <ul class="list-group list-group-flush">
+  {% endif %}
 
-        {% for clip in mediaDetails.clips.all %}
-          <li class="list-group-item"> 
-            {{clip.name}}
-            {% if selected_clip.pk == clip.pk %}
-               <a href="{% url 'details' mediaDetails.pk %}" class="btn btn-danger float-right">
-                <i class="fas fa-stop"></i> Stop 
-              </a> 
-            {% else %}
-               <a href="{% url 'details' mediaDetails.pk %}?clip_id={{clip.pk}}" class="btn btn-success float-right">
-                <i class="fas fa-play"></i> Play 
-              </a> 
-            {% endif %} 
-              
-          </li>
-        {% endfor %}
-      </ul>
+{% if request.user.is_authenticated %}
+  <p></p>
+  <h4>Agregar clip</h4>
+
+  <form action="{% url 'details' mediaDetails.id %}" method="post">
+    <div class="form-group">
+      {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-primary">Submit</button>
     </div>
-  </div>
-
-
-<p></p>
-<h4>Agregar clip</h4>
-
-<form action="{% url 'details' mediaDetails.id %}" method="post">
-  <div class="form-group">
-    {% csrf_token %}
-	{{form}}
-	<button type="submit" class="btn btn-primary">Submit</button>
-  </div>
-</form>
-
+  </form>
+{% endif %}
 
 </div>
 

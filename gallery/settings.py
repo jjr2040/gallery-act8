@@ -132,6 +132,16 @@ LOGOUT_REDIRECT_URL = '/'
 
 # Fake emails
 
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+# EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+# EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+#SendGrid mail
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME', '')
+EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD', '')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+
 
