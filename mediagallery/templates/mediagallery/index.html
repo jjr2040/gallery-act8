@@ -4,6 +4,28 @@
 
 {% block content %}
 <div class="container-fluid">
+    <h4>Buscar</h4>
+    <form action="" method="get">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">categoria</label>
+            </div>
+            <input type="text" name="c" value="{{ request.GET.c }}" class="form-control">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Tipo</label>
+            </div>
+            <select type="text" name="t" value="{{ request.GET.t }}" class="custom-select">
+                <option value="todos">Todos</option>
+                <option value=1>Video</option>
+                <option value=2>Audio</option>
+            </select>
+        </div>
+        <input type="submit" value="Search" class="btn btn-outline-primary">
+    </form>
+    <br>
+
 	<div class="row">
 		{% for m in media %}
 			<div class="col-md-4">

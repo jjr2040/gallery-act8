@@ -10,6 +10,17 @@ class MediaListView(ListView):
     template_name = "mediagallery/index.html"
     context_object_name = 'media'
 
+    def get_queryset(self):
+        categoria = self.request.GET.get('c')
+        tipo = self.request.GET.get('t')
+        primer_filtro = Media.objects
+        if categoria:
+            primer_filtro.filter(category__name__icontains=categoria)
+        elif tipo and tipo!= "todos":
+            primer_filtro.filter(media_type=int(tipo))
+        else:
+            return Media.objects.all()
+
 
 
 def details(request, id):
