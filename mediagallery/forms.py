@@ -1,5 +1,5 @@
 from django import forms
-from mediagallery.models import User
+from mediagallery.models import User, MediaClip
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import ModelForm
 
@@ -33,3 +33,10 @@ class UserUpdateForm(ModelForm):
         user = super(UserUpdateForm, self).save(commit=True)
         user.save()
         return user
+
+
+class CreateClip(ModelForm):
+
+    class Meta:
+        model = MediaClip
+        fields = ("name", "start_sec", "end_sec")
