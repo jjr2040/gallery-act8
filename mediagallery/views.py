@@ -7,6 +7,10 @@ from django.views import generic
 from mediagallery.forms import UserCreateForm, UserUpdateForm
 from .import forms
 from django.core.mail import send_mail
+from rest_framework import viewsets
+from .serializers import *
+from django_filters.rest_framework import DjangoFilterBackend
+
 
 class MediaListView(ListView):
     model = Media
@@ -69,6 +73,12 @@ class ChangeUserView(generic.UpdateView):
     success_url = reverse_lazy('media_index')
     template_name = 'edit_user.html'
 
-    
 
+# View Sets
+
+class MediaViewSet(viewsets.ReadOnlyModelViewSet):
+
+    queryset = Media.objects.all()
+    serializer_class = MediaSerializer
+    filter_fields = ('media_type', )
 
