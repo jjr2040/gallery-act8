@@ -49,7 +49,7 @@
         $('select').on('change', () => {
             media_type = document.getElementById('media_type').value;
             p.get(
-                "http://gallery-act8.herokuapp.com/api/media?media_type="+media_type,
+                "https://gallery-act8.herokuapp.com/api/media?media_type="+media_type,
                 function(data) {
                         nData = data;
                         refreshData(data);
@@ -57,7 +57,7 @@
             );
         });
         $.get(
-                "http://gallery-act8.herokuapp.com/api/media",
+                "https://gallery-act8.herokuapp.com/api/media",
                 function(data) {
                         nData = data;
                         refreshData(data);
