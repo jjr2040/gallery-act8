@@ -20,13 +20,12 @@ class MediaListView(ListView):
     def get_queryset(self):
         categoria = self.request.GET.get('c')
         tipo = self.request.GET.get('t')
-        primer_filtro = Media.objects
+        primer_filtro = Media.objects.all()
         if categoria:
-            primer_filtro.filter(category__name__icontains=categoria)
-        elif tipo and tipo!= "todos":
-            primer_filtro.filter(media_type=int(tipo))
-        else:
-            return Media.objects.all()
+            primer_filtro = primer_filtro.filter(category__name__icontains=categoria)
+        if tipo and tipo!= "todos":
+            primer_filtro = primer_filtro.filter(media_type=int(tipo))
+        return primer_filtro
 
 
 def details(request, id):
